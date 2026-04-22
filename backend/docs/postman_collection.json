@@ -1,0 +1,90 @@
+{
+  "info": {
+    "name": "PayOnChain API",
+    "description": "Complete API documentation for PayOnChain payment gateway.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Merchant",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:5000/api/auth/register" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"merchant@example.com\",\n  \"password\": \"securepassword\",\n  \"companyName\": \"Acme Inc\",\n  \"webhookUrl\": \"https://webhook.site/your-unique-id\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Merchant",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:5000/api/auth/login" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantId\": \"YOUR_MERCHANT_ID\",\n  \"password\": \"securepassword\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Merchant Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer YOUR_JWT_TOKEN" }],
+            "url": { "raw": "http://localhost:5000/api/auth/me" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Payment Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "x-api-key", "value": "YOUR_SECRET_KEY" }
+            ],
+            "url": { "raw": "http://localhost:5000/api/orders" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amountEth\": \"0.01\",\n  \"productDetails\": { \"name\": \"Pro Plan\" },\n  \"customReference\": \"inv-2026-001\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Get Order Details (public)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "http://localhost:5000/api/payments/order/ORDER_ID_HERE" }
+          }
+        },
+        {
+          "name": "Verify Payment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "http://localhost:5000/api/payments/verify" },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"txHash\": \"0x...\",\n  \"orderId\": \"order_...\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
